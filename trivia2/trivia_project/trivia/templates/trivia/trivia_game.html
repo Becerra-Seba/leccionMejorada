@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Answer{% endblock %}
+
+{% block content %}
+    <div class="container text-center">
+        {% if question %}
+        <h1 class="mt-5">Pregunta:</h1>
+        <p class="lead">{{ question.text }}</p>
+        <form method="post" action="{% url 'trivia:trivia' %}" class="mt-4">
+            {% csrf_token %}
+            <input type="hidden" name="question_id" value="{{ question.id }}">
+            {% for option in options %}
+            <div class="form-check">
+                <input class="form-check-input" type="radio" id="option_{{ option.id }}" name="answer" value="{{ option.id }}">
+                <label class="form-check-label" for="option_{{ option.id }}">{{ option.text }}</label>
+            </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-primary mt-3">Enviar</button>
+        </form>
+        {% else %}
+        <p class="mt-5">¡Felicidades! Has completado todas las preguntas.</p>
+        <form method="post" action="{% url 'trivia:restart' %}" class="mt-4">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary">Volver a comenzar</button>
+        </form>
+        {% endif %}
+    </div>
+{% endblock %}

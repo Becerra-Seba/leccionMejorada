@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block title %}Answer{% endblock %}
+
+{% block content %}
+    <div class="container text-center">
+        <h1 class="text-primary">{{ message }}</h1>
+        <a href="{% url 'trivia:trivia' %}" class="btn btn-secondary mt-3">Volver a Trivia</a>
+    </div>
+{% endblock %}
